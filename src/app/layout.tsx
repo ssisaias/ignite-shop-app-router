@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 /* we can just import Roboto from here */
-import { Roboto } from "next/font/google"; 
+import { Roboto } from "next/font/google";
 import "./globals.css";
 
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });

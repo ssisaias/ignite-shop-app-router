@@ -13,6 +13,10 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      /* Whatever he did using stitches we can do here */
+      colors: {
+        "isaias": "#eb4034"
+      }
     },
   },
   plugins: [],
