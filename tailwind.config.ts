@@ -16,6 +16,12 @@ const config: Config = {
       /* Whatever he did using stitches we can do here */
       colors: {
         "isaias": "#eb4034"
+      },
+      fontSize: {
+        md: '1.125rem', // 18px
+        lg: '1.25rem', // 20px
+        xl: '1.5rem', // 24px
+        xxl: 'rem', // 32px
       }
     },
   },
