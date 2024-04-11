@@ -22,7 +22,7 @@ export default function RootLayout({
       <body className={roboto.className + " bg-gray-900 text-gray-100"}>
         <div className="flex flex-col items-start min-h-screen"> {/* Container */}
           <header className="p-[2rem] w-full max-w-1180 ">
-            <Image src={logo.src} width={logo.width} height={logo.height} alt="logo" />
+            <Image src={logo} alt="logo" quality={50} />
           </header>
           {children}
         </div>{/* Container */}
