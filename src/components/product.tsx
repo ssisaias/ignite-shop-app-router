@@ -3,11 +3,11 @@
 import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 
-interface productContainerProps {
+interface productCardProps {
   image: StaticImageData;
 }
 
-export function ProductContainer(props: productContainerProps) {
+export function ProductCard(props: productCardProps) {
   return (
     <a className="relative flex cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-gradient-to-b from-[#1ea483] to-[#7465d4] transition delay-150 ease-in-out hover:scale-105 hover:bg-gradient-to-t group keen-slider__slide">
       <Image
