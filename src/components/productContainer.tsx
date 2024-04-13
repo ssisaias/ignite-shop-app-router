@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import { ProductCard } from "@/components/product";
 
@@ -10,19 +10,38 @@ import camiseta3 from "../assets/shirts/3.png";
 import "keen-slider/keen-slider.min.css";
 
 export function ProductContainer() {
-  const [sliderRef] = useKeenSlider({
+  const [sliderRef, instanceRef] = useKeenSlider({
+    loop: true,
     slides: {
       perView: 3,
-      spacing: 48
-    }
-  })
+      spacing: 48,
+    },
+    drag: true,
+  });
+
+  function nextSlider(e: any) {
+    e.preventDefault();
+    const delta = Math.max(-1, Math.min(1, e.deltaY || e.deltaX));
+    setTimeout(() => {
+      if (delta < 0) {
+        instanceRef?.current?.prev();
+      } else if (delta > 0) {
+        instanceRef?.current?.next();
+      }
+    }, 350);
+  }
+
   return (
-    <div className="flex min-h-[440px]" ref={sliderRef}>
+    <div
+      className="flex min-h-[440px] overflow-hidden"
+      ref={sliderRef}
+      onWheel={(e) => nextSlider(e)}
+    >
       {/* Home container */}
       <ProductCard image={camiseta1}></ProductCard>
       <ProductCard image={camiseta2}></ProductCard>
-      <ProductCard image={camiseta3}></ProductCard>
       <ProductCard image={camiseta1}></ProductCard>
+      <ProductCard image={camiseta3}></ProductCard>
     </div>
   );
 }
