@@ -9,7 +9,16 @@ import camiseta2 from "../assets/shirts/2.png";
 import camiseta3 from "../assets/shirts/3.png";
 import "keen-slider/keen-slider.min.css";
 
-export function ProductContainer() {
+export type ProductContainerProps = {
+  productData?: {
+    id: string;
+    name: string;
+    imageUrl: string;
+    price: number;
+  }[];
+};
+
+export function ProductContainer({ productData }: ProductContainerProps) {
   const [sliderRef, instanceRef] = useKeenSlider({
     loop: true,
     slides: {
@@ -37,11 +46,15 @@ export function ProductContainer() {
       ref={sliderRef}
       onWheel={(e) => nextSlider(e)}
     >
-      {/* Home container */}
-      <ProductCard image={camiseta1}></ProductCard>
-      <ProductCard image={camiseta2}></ProductCard>
-      <ProductCard image={camiseta1}></ProductCard>
-      <ProductCard image={camiseta3}></ProductCard>
+      {productData && productData.map((product) => (
+        <ProductCard
+          key={product.id}
+          id={product.id}
+          imageUrl={product.imageUrl}
+          name={product.name}
+          price={product.price}
+        ></ProductCard>
+      ))}
     </div>
   );
 }
