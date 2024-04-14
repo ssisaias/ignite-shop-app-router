@@ -2,6 +2,7 @@ import { stripe } from "@/lib/stripe";
 import { log } from "console";
 import Image from "next/image";
 import Stripe from "stripe";
+import { BuyClientButton } from "./buy-client-button";
 
 type ProductIdProps = {
   params: {
@@ -15,6 +16,7 @@ type ProductData = {
   imageUrl: string;
   description: string;
   price: string;
+  defaultPriceId: string;
 };
 
 async function getProductDetails(pId: string) {
@@ -35,6 +37,7 @@ async function getProductDetails(pId: string) {
         style: "currency",
         currency: pPrice.currency as string,
       }),
+      defaultPriceId: pPrice.id,
     };
 
     return productData;
@@ -80,9 +83,9 @@ export default async function ProductId({ params }: ProductIdProps) {
         <p className="mt-10 text-md leading-6 text-gray-300">
           {productDetails?.description}
         </p>
-        <button className="mt-auto cursor-pointer rounded-lg border-0 bg-green-600 p-5 font-bold text-white hover:bg-opacity-75">
-          Comprar agora
-        </button>
+        <BuyClientButton
+          priceId={productDetails?.defaultPriceId}
+        ></BuyClientButton>
       </div>
     </main>
   );
