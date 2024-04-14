@@ -11,7 +11,7 @@ export async function GET(request: NextApiRequest) {
     return NextResponse.json(new Error('PriceId is required'), {status: 400});
   }
 
-  const sucessUrl = process.env.NEXT_URL + "/sucess";
+  const sucessUrl = process.env.NEXT_URL + "/checkout-success?session_id={CHECKOUT_SESSION_ID}";
   const cancelUrl = process.env.NEXT_URL + "/";
 
   const checkoutSession = await stripe.checkout.sessions.create({

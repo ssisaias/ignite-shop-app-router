@@ -16,8 +16,7 @@ export function BuyClientButton(props: ButtonProps) {
     setButtonClicked(true);
     console.log(props?.priceId);
     try {
-      const requestUrl = new URL('/api/checkout');
-      const checkoutSessionResponse = await axios.get(requestUrl.toString(), {
+      const checkoutSessionResponse = await axios.get('/api/checkout', {
         params: {
           priceId: props?.priceId,
         },
