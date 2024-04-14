@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 
 interface productCardProps {
   id: string;
@@ -12,7 +13,10 @@ interface productCardProps {
 export function ProductCard(props: productCardProps) {
   return (
     <div className="keen-slider__slide">
-      <a className="group relative left-2 top-2 flex cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-gradient-to-b from-[#1ea483] to-[#7465d4] transition delay-150 ease-in-out hover:scale-105 hover:bg-gradient-to-t">
+      <Link
+        className="group relative left-2 top-2 flex cursor-pointer items-center justify-center overflow-hidden rounded-lg bg-gradient-to-b from-[#1ea483] to-[#7465d4] transition delay-150 ease-in-out hover:scale-105 hover:bg-gradient-to-t"
+        href={`/product/${props.id}`}
+      >
         <Image
           src={props.imageUrl}
           alt=""
@@ -31,7 +35,7 @@ export function ProductCard(props: productCardProps) {
             })}
           </span>
         </footer>
-      </a>
+      </Link>
     </div>
   );
 }
