@@ -2,6 +2,7 @@ import { stripe } from "@/lib/stripe";
 
 import SuccessClientPage from "./checkout-success";
 import { ServerPageParamProps } from "../interfaces/server-page-props";
+import { Metadata } from "next";
 
 async function getCheckoutDetails(sessionId: string) {
   if (!sessionId) return null;
@@ -15,6 +16,11 @@ async function getCheckoutDetails(sessionId: string) {
     return response;
   }
 }
+
+export const metadata: Metadata = {
+  title: "Purchase completed",
+  robots: "noindex",
+};
 
 export default async function CheckoutSuccess({
   params,

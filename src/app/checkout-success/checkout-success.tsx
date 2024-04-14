@@ -1,11 +1,6 @@
 import { ImageContainer } from "@/components/imageContainer";
-import type { Metadata } from "next";
 import Link from "next/link";
 import Stripe from "stripe";
-
-export const metadata: Metadata = {
-  title: "Purchase completed",
-};
 
 interface SuccessClientPageProps {
   checkoutDetails: Stripe.Response<Stripe.Checkout.Session>;
