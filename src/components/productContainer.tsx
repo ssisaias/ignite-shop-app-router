@@ -23,7 +23,7 @@ export function ProductContainer({ productData }: ProductContainerProps) {
     loop: true,
     slides: {
       perView: 3,
-      spacing: 48,
+      spacing: 44,
     },
     drag: true,
   });

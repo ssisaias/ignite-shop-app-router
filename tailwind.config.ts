@@ -21,7 +21,7 @@ const config: Config = {
         md: '1.125rem', // 18px
         lg: '1.25rem', // 20px
         xl: '1.5rem', // 24px
-        xxl: 'rem', // 32px
+        xxl: '1.75rem', // 32px
       }
     },
   },
