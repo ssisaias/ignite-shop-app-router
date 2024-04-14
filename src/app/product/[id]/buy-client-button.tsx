@@ -9,14 +9,14 @@ interface ButtonProps {
 }
 
 export function BuyClientButton(props: ButtonProps) {
-  const router = useRouter()
+  const router = useRouter();
   const [buttonClicked, setButtonClicked] = useState(false);
 
   async function handleBuyProduct() {
     setButtonClicked(true);
     console.log(props?.priceId);
     try {
-      const checkoutSessionResponse = await axios.get('/api/checkout', {
+      const checkoutSessionResponse = await axios.get("/api/checkout", {
         params: {
           priceId: props?.priceId,
         },

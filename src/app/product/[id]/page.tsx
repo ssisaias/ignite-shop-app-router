@@ -1,9 +1,9 @@
 import { stripe } from "@/lib/stripe";
-import { log } from "console";
-import Image from "next/image";
 import Stripe from "stripe";
 import { BuyClientButton } from "./buy-client-button";
 import { ImageContainer } from "@/components/imageContainer";
+import type { Metadata, ResolvingMetadata } from 'next'
+import { ServerPageParamProps } from "@/app/interfaces/server-page-props";
 
 type ProductIdProps = {
   params: {
@@ -45,6 +45,16 @@ async function getProductDetails(pId: string) {
   }
 }
 
+export async function generateMetadata(
+  { params, searchParams }: ServerPageParamProps,
+  parent: ResolvingMetadata
+): Promise<Metadata>{
+  const productData = await getProductDetails(params.id);
+  return {
+    title: productData?.name + ' | Shop'
+  };
+}
+
 //className={`${roboto.className} `}
 export default async function ProductById({ params }: ProductIdProps) {
   /* Here we achieve what Diego shows around the 5 minute mark at the class "Criando rotas da aplicação" */
@@ -54,38 +64,39 @@ export default async function ProductById({ params }: ProductIdProps) {
   /* Product: {JSON.stringify(params)} */
   /* </div> */
   const productDetails = await getProductDetails(params.id);
-  log(productDetails);
 
   return (
-    <main
-      id="productContainer"
-      className="m-auto grid max-w-5xl grid-flow-col grid-cols-2 items-stretch gap-[4rem]"
-    >
-      <div
-        id="imgContainer"
-        className="flex h-[calc(450px-0.5rem)] w-[100%] min-w-[426px] max-w-[576px] items-center justify-center p-[0.25rem]"
+    <>
+      <main
+        id="productContainer"
+        className="m-auto grid max-w-5xl grid-flow-col grid-cols-2 items-stretch gap-[4rem]"
       >
-        <ImageContainer
-          imageUrl={productDetails?.imageUrl || ""}
-          alt=""
-          width={520}
-          height={440}
-          className="max-h-[calc(450px-0.5rem)]"
-        />
-      </div>
+        <div
+          id="imgContainer"
+          className="flex h-[calc(450px-0.5rem)] w-[100%] min-w-[426px] max-w-[576px] items-center justify-center p-[0.25rem]"
+        >
+          <ImageContainer
+            imageUrl={productDetails?.imageUrl || ""}
+            alt=""
+            width={520}
+            height={440}
+            className="max-h-[calc(450px-0.5rem)]"
+          />
+        </div>
 
-      <div id="producDetails" className="flex flex-col">
-        <h1 className="text-xxl text-gray-300">{productDetails?.name}</h1>
-        <span className="mt-4 text-xxl text-green-500">
-          {productDetails?.price}
-        </span>
-        <p className="mt-10 text-md leading-6 text-gray-300">
-          {productDetails?.description}
-        </p>
-        <BuyClientButton
-          priceId={productDetails?.defaultPriceId}
-        ></BuyClientButton>
-      </div>
-    </main>
+        <div id="producDetails" className="flex flex-col">
+          <h1 className="text-xxl text-gray-300">{productDetails?.name}</h1>
+          <span className="mt-4 text-xxl text-green-500">
+            {productDetails?.price}
+          </span>
+          <p className="mt-10 text-md leading-6 text-gray-300">
+            {productDetails?.description}
+          </p>
+          <BuyClientButton
+            priceId={productDetails?.defaultPriceId}
+          ></BuyClientButton>
+        </div>
+      </main>
+    </>
   );
 }

@@ -9,7 +9,7 @@ import Link from "next/link";
 const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"], display: "swap" });
 
 export const metadata: Metadata = {
-  title: "Shop demo",
+  title: "Shop demo - github.com/ssisaias",
 };
 
 export default function RootLayout({

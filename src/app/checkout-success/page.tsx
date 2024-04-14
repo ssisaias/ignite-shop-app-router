@@ -1,6 +1,7 @@
 import { stripe } from "@/lib/stripe";
 
 import SuccessClientPage from "./checkout-success";
+import { ServerPageParamProps } from "../interfaces/server-page-props";
 
 async function getCheckoutDetails(sessionId: string) {
   if (!sessionId) return null;
@@ -18,10 +19,7 @@ async function getCheckoutDetails(sessionId: string) {
 export default async function CheckoutSuccess({
   params,
   searchParams,
-}: {
-  params: { slug: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) {
+}: ServerPageParamProps) {
   const checkoutDetails = await getCheckoutDetails(
     searchParams?.session_id as string,
   );
