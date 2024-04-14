@@ -23,11 +23,11 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  font-family: "Roboto";
+  font-family: Roboto;
   font-weight: 400;
 
   input, textarea, select, button {
-    font-family: "Roboto";
+    font-family: Roboto;
     font-weight: 400;
     font-size: 1rem;
   }
