@@ -20,14 +20,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={roboto.className + " bg-gray-900 text-gray-100"}>
-        <div className="flex flex-col items-start min-h-screen"> {/* Container */}
-          <header className="p-[2rem] w-full max-w-1180 ">
-            <Image src={logo} alt="logo" quality={50} />
+      <body
+        className={`bg-gray-900 text-gray-100 ${roboto.className}`}
+      >
+        <div className={`flex min-h-screen flex-col items-start`}>
+          {" "}
+          {/* Container */}
+          <header className="max-w-1180 w-full p-[2rem] ">
+            <Link href={"/"}>
+              <Image src={logo} alt="logo" quality={50} />
+            </Link>
           </header>
           {children}
-        </div>{/* Container */}
-        
+        </div>
+        {/* Container */}
       </body>
     </html>
   );

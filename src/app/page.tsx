@@ -1,9 +1,6 @@
 import { ProductContainer } from "@/components/productContainer";
 import { stripe } from "@/lib/stripe";
-import { Roboto } from "next/font/google";
 import Stripe from "stripe";
-
-const roboto = Roboto({ subsets: ["latin"], weight: ["400", "700"] });
 
 type ProductData = {
   id: string;
@@ -35,7 +32,7 @@ export default async function Home() {
   const productData = await getProducts();
   
   return (
-    <main className={`${roboto.className} ml-auto flex min-h-[440px] w-[calc(100vw-((100vw-1180px)/2))]`}>
+    <main className={`ml-auto flex min-h-[440px] w-[calc(100vw-((100vw-1180px)/2))]`}>
       <ProductContainer productData={productData} />
     </main>
   );
