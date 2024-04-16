@@ -1,6 +1,5 @@
 import { stripe } from "@/lib/stripe";
 import { log } from "console";
-import { STATUS_CODES } from "http";
 import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
 
