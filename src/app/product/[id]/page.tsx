@@ -1,8 +1,8 @@
 import { stripe } from "@/lib/stripe";
 import Stripe from "stripe";
-import { BuyClientButton } from "./buy-client-button";
+import { AddToCartButton } from "../../../components/add-to-cart-button";
 import { ImageContainer } from "@/components/imageContainer";
-import type { Metadata, ResolvingMetadata } from 'next'
+import type { Metadata, ResolvingMetadata } from "next";
 import { ServerPageParamProps } from "@/interfaces/server-page-props";
 
 type ProductIdProps = {
@@ -47,11 +47,11 @@ async function getProductDetails(pId: string) {
 
 export async function generateMetadata(
   { params, searchParams }: ServerPageParamProps,
-  parent: ResolvingMetadata
-): Promise<Metadata>{
+  parent: ResolvingMetadata,
+): Promise<Metadata> {
   const productData = await getProductDetails(params.id);
   return {
-    title: productData?.name + ' | Shop'
+    title: productData?.name + " | Shop",
   };
 }
 
@@ -92,9 +92,10 @@ export default async function ProductById({ params }: ProductIdProps) {
           <p className="mt-10 text-md leading-6 text-gray-300">
             {productDetails?.description}
           </p>
-          <BuyClientButton
+          <AddToCartButton
             priceId={productDetails?.defaultPriceId}
-          ></BuyClientButton>
+            mode="both"
+          ></AddToCartButton>
         </div>
       </main>
     </>
