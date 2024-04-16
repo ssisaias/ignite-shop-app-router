@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { CartContextProvider } from "@/contexts/CartContext";
 import { BotaoSacola } from "@/components/botaoSacola";
+import { CartOverlay } from "@/components/cartOverlay";
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -38,7 +39,7 @@ export default function RootLayout({
             </header>
             {children}
           </div>
-          {/* <CartOverlay />  */}
+          <CartOverlay /> 
         </body>
       </html>
     </CartContextProvider>

@@ -8,6 +8,7 @@ export interface Cart {
   items: CartItem[];
   totalPrice: number;
   selectedPaymentMethod?: string;
+  cartHidden: boolean;
 }
 
 /**

@@ -1,15 +1,16 @@
-'use client'
+"use client";
 
 import { createContext, useState } from "react";
 import { Cart, CartItem, CommonProviderProps } from "../interfaces/cart";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 interface CartContextType {
-  cart: Cart,
-  addItemToCart: (item: CartItem) => void,
-  getItemQuantity: () => number,
-  setItemQuantity: (itemId: string, quantity: number) => void,
-  removeItem: (itemId: string) => void,
+  cart: Cart;
+  addItemToCart: (item: CartItem) => void;
+  getItemQuantity: () => number;
+  setItemQuantity: (itemId: string, quantity: number) => void;
+  removeItem: (itemId: string) => void;
+  toggleCartHidden: () => void;
 }
 
 const newCart: Cart = {
@@ -17,16 +18,18 @@ const newCart: Cart = {
   items: [],
   createdDate: new Date(),
   totalPrice: 0,
-}
+  cartHidden: true,
+};
 
-export const CartContext = createContext<CartContextType>({} as CartContextType);
+export const CartContext = createContext<CartContextType>(
+  {} as CartContextType,
+);
 
 export function CartContextProvider({ children }: CommonProviderProps) {
-
   const [cart, setCart] = useState<Cart>(newCart);
 
   function addItemToCart(item: CartItem) {
-    const itemInCart = cart.items.find(i => i.priceId === item.priceId);
+    const itemInCart = cart.items.find((i) => i.priceId === item.priceId);
     if (itemInCart) {
       itemInCart.quantity += item.quantity;
     } else {
@@ -36,7 +39,7 @@ export function CartContextProvider({ children }: CommonProviderProps) {
   }
 
   function setItemQuantity(priceId: string, quantity: number) {
-    const itemInCart = cart.items.find(i => i.priceId === priceId);
+    const itemInCart = cart.items.find((i) => i.priceId === priceId);
     if (itemInCart) {
       itemInCart.quantity = quantity;
     }
@@ -48,27 +51,35 @@ export function CartContextProvider({ children }: CommonProviderProps) {
   }
 
   function removeItem(priceId: string) {
-    cart.items = cart.items.filter(i => i.priceId !== priceId);
+    cart.items = cart.items.filter((i) => i.priceId !== priceId);
     recalcTotals();
+  }
+
+  function toggleCartHidden() {
+    cart.cartHidden = !cart.cartHidden;
+    setCart({ ...cart });
   }
 
   function recalcTotals() {
     let totalPrice = 0;
-    cart.items.forEach(item => {
+    cart.items.forEach((item) => {
       totalPrice += item.price * item.quantity;
     });
-    cart.totalPrice = (totalPrice/100);
+    cart.totalPrice = totalPrice;
     setCart({ ...cart });
   }
 
   return (
-    <CartContext.Provider value={{
-      cart,
-      addItemToCart,
-      getItemQuantity,
-      setItemQuantity,
-      removeItem,
-    }}>
+    <CartContext.Provider
+      value={{
+        cart,
+        addItemToCart,
+        getItemQuantity,
+        setItemQuantity,
+        removeItem,
+        toggleCartHidden,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );
