@@ -1,3 +1,5 @@
+'use client'
+
 import { createContext, useState } from "react";
 import { Cart, CartItem, CommonProviderProps } from "../interfaces/cart";
 import { v4 as uuidv4 } from 'uuid';
