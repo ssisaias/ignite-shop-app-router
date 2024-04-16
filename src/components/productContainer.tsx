@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductCard } from "@/components/product";
+import { ProductCard } from "@/components/productCard";
 
 import { useKeenSlider } from "keen-slider/react";
 

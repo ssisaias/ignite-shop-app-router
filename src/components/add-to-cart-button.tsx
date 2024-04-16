@@ -1,16 +1,19 @@
 "use client";
 
+import { CartContext } from "@/contexts/CartContext";
 import axios from "axios";
 import { ShoppingCart } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 interface ButtonProps {
   priceId?: string;
+  price: number;
   mode: "icon" | "text" | "both";
 }
 
 export function AddToCartButton(props: ButtonProps) {
+  const cart = useContext(CartContext);
   const router = useRouter();
   const [buttonClicked, setButtonClicked] = useState(false);
 
@@ -25,6 +28,11 @@ export function AddToCartButton(props: ButtonProps) {
       });
       const checkoutUrl = await checkoutSessionResponse.data;
       router.push(checkoutUrl.checkoutUrl); */
+      cart.addItemToCart({
+        priceId: props?.priceId!,
+        price: props.price,
+        quantity: 1,
+      });
     } catch (error) {
       console.log(error);
       setButtonClicked(false);

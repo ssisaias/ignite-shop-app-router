@@ -16,7 +16,8 @@ type ProductData = {
   name: string;
   imageUrl: string;
   description: string;
-  price: string;
+  price: number;
+  formatedPrice: string;
   defaultPriceId: string;
 };
 
@@ -29,15 +30,21 @@ async function getProductDetails(pId: string) {
 
   if (response) {
     const pPrice = response.default_price as Stripe.Price;
+    const formatedPrice = ((pPrice.unit_amount || 0) / 100).toLocaleString(
+      "pt-BR",
+      {
+        style: "currency",
+        currency: pPrice.currency as string,
+      },
+    );
+
     const productData: ProductData = {
       id: response.id,
       name: response.name,
       imageUrl: response.images[0] || "",
       description: response.description || "",
-      price: ((pPrice.unit_amount || 0) / 100).toLocaleString("pt-BR", {
-        style: "currency",
-        currency: pPrice.currency as string,
-      }),
+      price: pPrice.unit_amount || 0,
+      formatedPrice: formatedPrice,
       defaultPriceId: pPrice.id,
     };
 
@@ -87,13 +94,14 @@ export default async function ProductById({ params }: ProductIdProps) {
         <div id="producDetails" className="flex flex-col">
           <h1 className="text-xxl text-gray-300">{productDetails?.name}</h1>
           <span className="mt-4 text-xxl text-green-500">
-            {productDetails?.price}
+            {productDetails?.formatedPrice}
           </span>
           <p className="mt-10 text-md leading-6 text-gray-300">
             {productDetails?.description}
           </p>
           <AddToCartButton
             priceId={productDetails?.defaultPriceId}
+            price={productDetails?.price || 0}
             mode="both"
           ></AddToCartButton>
         </div>
