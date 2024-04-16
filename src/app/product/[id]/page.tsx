@@ -103,6 +103,8 @@ export default async function ProductById({ params }: ProductIdProps) {
             priceId={productDetails?.defaultPriceId}
             price={(productDetails?.price || 0) / 100}
             mode="both"
+            productName={productDetails?.name!}
+            productImgUrl={productDetails?.imageUrl}
           ></AddToCartButton>
         </div>
       </main>

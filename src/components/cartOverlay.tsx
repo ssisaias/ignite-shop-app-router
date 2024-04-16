@@ -4,6 +4,7 @@ import { CartContext } from "@/contexts/CartContext";
 import { Trash2, X } from "lucide-react";
 import { useContext } from "react";
 import clsx from "clsx";
+import { ImageContainer } from "./imageContainer";
 
 export function CartOverlay() {
   const cart = useContext(CartContext);
@@ -34,10 +35,21 @@ export function CartOverlay() {
                 className="flex items-center justify-between"
                 key={item.priceId}
               >
-                <div className="flex gap-4">
+                <div className="flex gap-4 mt-4">
                   <div>
-                    <h1 className="font-bold text-white">{item.priceId}</h1>
-                    <h1 className="font-bold text-white">
+                    <ImageContainer
+                      imageUrl={item.imgUrl!}
+                      alt=""
+                      className="rounded w-16"
+                      width={50}
+                      height={50}
+                    />
+                  </div>
+                  <div>
+                    <h2 className="text-md font-bold text-gray-300">
+                      {item.name}
+                    </h2>
+                    <span className="text-sm text-green-600">
                       {`${item.quantity} x ${item.price.toLocaleString(
                         "pt-BR",
                         {
@@ -45,14 +57,14 @@ export function CartOverlay() {
                           currency: "BRL",
                         },
                       )}`}
-                    </h1>
+                    </span>
                   </div>
                 </div>
                 <button
                   className="rounded"
                   onClick={() => cart.removeItem(item.priceId)}
                 >
-                  <Trash2></Trash2>
+                  <Trash2 className="text-pink-900"></Trash2>
                 </button>
               </div>
             ))}

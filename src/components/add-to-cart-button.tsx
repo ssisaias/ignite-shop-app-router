@@ -9,6 +9,8 @@ import { useContext, useState } from "react";
 interface ButtonProps {
   priceId?: string;
   price: number;
+  productName: string;
+  productImgUrl?: string;
   mode: "icon" | "text" | "both";
 }
 
@@ -23,6 +25,8 @@ export function AddToCartButton(props: ButtonProps) {
       cart.addItemToCart({
         priceId: props?.priceId!,
         price: props.price,
+        name: props.productName,
+        imgUrl: props.productImgUrl,
         quantity: 1,
       });
     } catch (error) {

@@ -35,7 +35,13 @@ export function ProductCard(props: productCardProps) {
             </span>
           </div>
           <div>
-            <AddToCartButton priceId={props.priceId} price={props.price} mode="icon" />
+            <AddToCartButton
+              priceId={props.priceId}
+              price={props.price}
+              mode="icon"
+              productName={props.name}
+              productImgUrl={props.imageUrl}
+            />
           </div>
         </footer>
       </div>

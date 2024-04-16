@@ -21,5 +21,7 @@ export interface Cart {
 export interface CartItem {
   priceId: string;
   price: number;
+  imgUrl?: string;
+  name: string;
   quantity: number;
 }
