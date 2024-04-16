@@ -14,20 +14,12 @@ interface ButtonProps {
 
 export function AddToCartButton(props: ButtonProps) {
   const cart = useContext(CartContext);
-  const router = useRouter();
   const [buttonClicked, setButtonClicked] = useState(false);
 
   async function handleBuyProduct() {
     setButtonClicked(true);
     console.log(props?.priceId);
     try {
-      /* const checkoutSessionResponse = await axios.get("/api/checkout", {
-        params: {
-          priceId: props?.priceId,
-        },
-      });
-      const checkoutUrl = await checkoutSessionResponse.data;
-      router.push(checkoutUrl.checkoutUrl); */
       cart.addItemToCart({
         priceId: props?.priceId!,
         price: props.price,
@@ -35,7 +27,10 @@ export function AddToCartButton(props: ButtonProps) {
       });
     } catch (error) {
       console.log(error);
-      setButtonClicked(false);
+    } finally {
+      setTimeout(() => {
+        setButtonClicked(false);
+      }, 250);
     }
   }
 
@@ -44,7 +39,7 @@ export function AddToCartButton(props: ButtonProps) {
   return (
     <button
       onClick={handleBuyProduct}
-      className="mt-auto flex cursor-pointer items-center justify-center rounded-lg border-0 bg-green-600 p-5 font-bold text-white hover:bg-opacity-75 disabled:cursor-not-allowed disabled:bg-gray-500"
+      className="mt-auto flex cursor-pointer items-center justify-center rounded-lg border-0 bg-green-600 p-5 font-bold text-white hover:bg-opacity-75 disabled:cursor-wait disabled:bg-gray-500"
       disabled={buttonClicked}
     >
       {mode === "both" && (

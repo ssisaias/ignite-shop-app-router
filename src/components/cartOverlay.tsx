@@ -67,9 +67,11 @@ export function CartOverlay() {
             </h1>
           </div>
           <div className="flex items-center justify-center">
-            <button className="absolute bottom-4 mt-4 w-10/12 rounded bg-green-500 p-2 text-md font-bold text-gray-100 hover:opacity-85">
-              Finalizar Compra
-            </button>
+            {cart.getItemQuantity() > 0 && (
+              <button className="absolute bottom-4 mt-4 w-10/12 rounded bg-green-500 p-2 text-md font-bold text-gray-100 hover:opacity-85">
+                Finalizar Compra
+              </button>
+            )}
           </div>
         </div>
       )}

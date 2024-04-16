@@ -101,7 +101,7 @@ export default async function ProductById({ params }: ProductIdProps) {
           </p>
           <AddToCartButton
             priceId={productDetails?.defaultPriceId}
-            price={productDetails?.price || 0}
+            price={(productDetails?.price || 0) / 100}
             mode="both"
           ></AddToCartButton>
         </div>
