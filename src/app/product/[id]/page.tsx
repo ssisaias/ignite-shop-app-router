@@ -3,7 +3,7 @@ import Stripe from "stripe";
 import { BuyClientButton } from "./buy-client-button";
 import { ImageContainer } from "@/components/imageContainer";
 import type { Metadata, ResolvingMetadata } from 'next'
-import { ServerPageParamProps } from "@/app/interfaces/server-page-props";
+import { ServerPageParamProps } from "@/interfaces/server-page-props";
 
 type ProductIdProps = {
   params: {

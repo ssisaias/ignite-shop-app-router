@@ -1,7 +1,7 @@
 import { stripe } from "@/lib/stripe";
 
 import SuccessClientPage from "./checkout-success";
-import { ServerPageParamProps } from "../interfaces/server-page-props";
+import { ServerPageParamProps } from "../../interfaces/server-page-props";
 import { Metadata } from "next";
 
 async function getCheckoutDetails(sessionId: string) {
