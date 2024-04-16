@@ -6,13 +6,14 @@ type ProductData = {
   id: string;
   name: string;
   imageUrl: string;
+  priceId: string;
   price: number;
 };
 
 async function getProducts() {
   const response = await stripe.products.list({
     limit: 10,
-    expand: ['data.default_price']
+    expand: ["data.default_price"],
   });
 
   if (response) {
@@ -22,6 +23,7 @@ async function getProducts() {
         id: product.id,
         name: product.name,
         imageUrl: product.images[0],
+        priceId: price.id,
         price: (price?.unit_amount || 0) / 100,
       };
     });
@@ -30,9 +32,11 @@ async function getProducts() {
 }
 export default async function Home() {
   const productData = await getProducts();
-  
+
   return (
-    <main className={`ml-auto flex min-h-[440px] w-[calc(100vw-((100vw-1180px)/2))]`}>
+    <main
+      className={`ml-auto flex min-h-[440px] w-[calc(100vw-((100vw-1180px)/2))]`}
+    >
       <ProductContainer productData={productData} />
     </main>
   );

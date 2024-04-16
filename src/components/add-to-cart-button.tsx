@@ -18,13 +18,13 @@ export function AddToCartButton(props: ButtonProps) {
     setButtonClicked(true);
     console.log(props?.priceId);
     try {
-      const checkoutSessionResponse = await axios.get("/api/checkout", {
+      /* const checkoutSessionResponse = await axios.get("/api/checkout", {
         params: {
           priceId: props?.priceId,
         },
       });
       const checkoutUrl = await checkoutSessionResponse.data;
-      router.push(checkoutUrl.checkoutUrl);
+      router.push(checkoutUrl.checkoutUrl); */
     } catch (error) {
       console.log(error);
       setButtonClicked(false);

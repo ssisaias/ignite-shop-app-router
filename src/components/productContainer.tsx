@@ -4,9 +4,6 @@ import { ProductCard } from "@/components/product";
 
 import { useKeenSlider } from "keen-slider/react";
 
-import camiseta1 from "../assets/shirts/1.png";
-import camiseta2 from "../assets/shirts/2.png";
-import camiseta3 from "../assets/shirts/3.png";
 import "keen-slider/keen-slider.min.css";
 
 export type ProductContainerProps = {
@@ -14,6 +11,7 @@ export type ProductContainerProps = {
     id: string;
     name: string;
     imageUrl: string;
+    priceId: string;
     price: number;
   }[];
 };
@@ -46,15 +44,17 @@ export function ProductContainer({ productData }: ProductContainerProps) {
       ref={sliderRef}
       onWheel={(e) => nextSlider(e)}
     >
-      {productData && productData.map((product) => (
-        <ProductCard
-          key={product.id}
-          id={product.id}
-          imageUrl={product.imageUrl}
-          name={product.name}
-          price={product.price}
-        ></ProductCard>
-      ))}
+      {productData &&
+        productData.map((product) => (
+          <ProductCard
+            key={product.id}
+            id={product.id}
+            imageUrl={product.imageUrl}
+            name={product.name}
+            priceId={product.priceId}
+            price={product.price}
+          ></ProductCard>
+        ))}
     </div>
   );
 }
