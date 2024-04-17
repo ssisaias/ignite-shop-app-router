@@ -1,9 +1,8 @@
 import { stripe } from "@/lib/stripe";
 import { log } from "console";
-import { NextApiRequest } from "next";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(request: NextApiRequest) {
+export async function GET(request: NextRequest) {
   log(request);
   const priceId = new URL(request.url||'').searchParams.get('priceId');
   if (!priceId) {
