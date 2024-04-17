@@ -24,31 +24,34 @@ type ProductData = {
 async function getProductDetails(pId: string) {
   if (!pId) return;
 
-  const response = await stripe.products.retrieve(pId, {
-    expand: ["default_price"],
-  });
+  try {
+    const response = await stripe.products.retrieve(pId, {
+      expand: ["default_price"],
+    });
+    if (response) {
+      const pPrice = response.default_price as Stripe.Price;
+      const formatedPrice = ((pPrice.unit_amount || 0) / 100).toLocaleString(
+        "pt-BR",
+        {
+          style: "currency",
+          currency: pPrice.currency as string,
+        },
+      );
 
-  if (response) {
-    const pPrice = response.default_price as Stripe.Price;
-    const formatedPrice = ((pPrice.unit_amount || 0) / 100).toLocaleString(
-      "pt-BR",
-      {
-        style: "currency",
-        currency: pPrice.currency as string,
-      },
-    );
+      const productData: ProductData = {
+        id: response.id,
+        name: response.name,
+        imageUrl: response.images[0] || "",
+        description: response.description || "",
+        price: pPrice.unit_amount || 0,
+        formatedPrice: formatedPrice,
+        defaultPriceId: pPrice.id,
+      };
 
-    const productData: ProductData = {
-      id: response.id,
-      name: response.name,
-      imageUrl: response.images[0] || "",
-      description: response.description || "",
-      price: pPrice.unit_amount || 0,
-      formatedPrice: formatedPrice,
-      defaultPriceId: pPrice.id,
-    };
+      return productData;
+    }
+  } catch (error) {
 
-    return productData;
   }
 }
 
@@ -71,7 +74,9 @@ export default async function ProductById({ params }: ProductIdProps) {
   /* Product: {JSON.stringify(params)} */
   /* </div> */
   const productDetails = await getProductDetails(params.id);
-
+  if(!productDetails) {
+    return <div className="flex items-center justify-center w-full">Product data not available</div>
+  }
   return (
     <>
       <main

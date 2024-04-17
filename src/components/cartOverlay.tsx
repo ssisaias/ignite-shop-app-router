@@ -2,12 +2,35 @@
 
 import { CartContext } from "@/contexts/CartContext";
 import { Trash2, X } from "lucide-react";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import clsx from "clsx";
 import { ImageContainer } from "./imageContainer";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 export function CartOverlay() {
+  const router = useRouter();
   const cart = useContext(CartContext);
+  const [checkoutStarted, setCheckoutStarted] = useState(false);
+
+  async function handleCheckout() {
+    setCheckoutStarted(true);
+    try {
+      const products = cart.cart.items.map((p) => ({
+        priceId: p.priceId,
+        quantity: p.quantity,
+      }));
+      const checkoutSessionResponse = await axios.post("/api/checkoutV2", {
+        products,
+      });
+      const checkoutUrl = await checkoutSessionResponse.data;
+      router.push(checkoutUrl.checkoutUrl);
+    } catch (error) {
+      console.log(error);
+      setCheckoutStarted(false);
+    }
+  }
+
   const mainClass = clsx({
     "fixed right-0 top-0 h-[100%] w-[40%] bg-gray-800 p-4 transition-all duration-500":
       true,
@@ -35,12 +58,12 @@ export function CartOverlay() {
                 className="flex items-center justify-between"
                 key={item.priceId}
               >
-                <div className="flex gap-4 mt-4">
+                <div className="mt-4 flex gap-4">
                   <div>
                     <ImageContainer
                       imageUrl={item.imgUrl!}
                       alt=""
-                      className="rounded w-16"
+                      className="w-16 rounded"
                       width={50}
                       height={50}
                     />
@@ -80,7 +103,11 @@ export function CartOverlay() {
           </div>
           <div className="flex items-center justify-center">
             {cart.getItemQuantity() > 0 && (
-              <button className="absolute bottom-4 mt-4 w-10/12 rounded bg-green-500 p-2 text-md font-bold text-gray-100 hover:opacity-85">
+              <button
+                className="absolute bottom-4 mt-4 w-10/12 rounded bg-green-500 p-2 text-md font-bold text-gray-100 hover:opacity-85 disabled:bg-slate-600"
+                disabled={checkoutStarted}
+                onClick={() => handleCheckout()}
+              >
                 Finalizar Compra
               </button>
             )}

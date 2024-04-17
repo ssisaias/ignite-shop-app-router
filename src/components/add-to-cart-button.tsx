@@ -43,7 +43,7 @@ export function AddToCartButton(props: ButtonProps) {
   return (
     <button
       onClick={handleBuyProduct}
-      className="mt-auto flex cursor-pointer items-center justify-center rounded-lg border-0 bg-green-600 p-5 font-bold text-white hover:bg-opacity-75 disabled:cursor-wait disabled:bg-gray-500"
+      className="mt-auto flex cursor-pointer items-center justify-center rounded-lg border-0 bg-green-600 p-5 font-bold text-white hover:bg-opacity-75 disabled:cursor-wait disabled:bg-slate-600"
       disabled={buttonClicked}
     >
       {mode === "both" && (
