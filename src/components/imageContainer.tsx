@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import Image from "next/image";
 
 export interface ImageContainerProps {
@@ -6,11 +7,18 @@ export interface ImageContainerProps {
   width?: number;
   height?: number;
   className?: string;
+  perfectCircle?: boolean;
 }
 
 export function ImageContainer(props: ImageContainerProps) {
+  const rounded = clsx({
+    "rounded-full": props.perfectCircle,
+    "rounded-lg": !props.perfectCircle,
+  });
   return (
-    <div className="bg-gradient-to-b from-[#1ea483] to-[#7465d4] transition delay-150 ease-in-out hover:scale-105 hover:bg-gradient-to-t rounded-lg">
+    <div
+      className={`${rounded} bg-gradient-to-b from-[#1ea483] to-[#7465d4] transition delay-150 ease-in-out hover:scale-105 hover:bg-gradient-to-t`}
+    >
       <Image
         src={props.imageUrl}
         alt=""

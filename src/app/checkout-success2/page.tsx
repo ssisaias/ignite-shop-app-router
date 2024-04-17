@@ -3,6 +3,7 @@ import { stripe } from "@/lib/stripe";
 import SuccessClientPage from "./checkout-success2";
 import { ServerPageParamProps } from "../../interfaces/server-page-props";
 import { Metadata } from "next";
+import Stripe from "stripe";
 
 async function getCheckoutDetails(sessionId: string) {
   if (!sessionId) return null;
@@ -31,5 +32,17 @@ export default async function CheckoutSuccess({
   );
   console.log(checkoutDetails?.line_items?.data[0].price?.product);
 
-  return <SuccessClientPage checkoutDetails={checkoutDetails!} />;
+  const products = checkoutDetails?.line_items?.data.map((item) => {
+    return {
+      name: (item.price?.product as Stripe.Product).name,
+      imgUrl: (item.price?.product as Stripe.Product).images[0],
+    };
+  });
+
+  return (
+    <SuccessClientPage
+      customerName={checkoutDetails?.customer_details?.name!}
+      products={products!}
+    />
+  );
 }
